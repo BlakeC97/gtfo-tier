@@ -3,7 +3,10 @@ package main
 import (
 	"cmp"
 	"fmt"
+	tea "github.com/charmbracelet/bubbletea"
 	"gtfo-tier/tiering"
+	"gtfo-tier/tui"
+	"os"
 	"slices"
 	"strings"
 )
@@ -18,6 +21,11 @@ func weaponsToStrings(weapons []tiering.Weapon) []string {
 
 func main() {
 	tierLists := tiering.TierLists()
+
+	p := tea.NewProgram(tui.NewModel())
+	if _, err := p.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+	}
 
 	type pair struct {
 		situation tiering.Situation
